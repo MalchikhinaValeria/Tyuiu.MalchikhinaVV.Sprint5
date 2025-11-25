@@ -28,7 +28,7 @@ namespace Tyuiu.MalchikhinaVV.Sprint5.Task1.V12.Lib
 
             for (int x = startValue; x <= stopValue; x++)
             {
-                y = Math.Round((5 * x + 2.5) / (Math.Sin(x) - 2) + 2, 3);
+                y = Math.Round((5 * x + 2.5) / (Math.Sin(x) - 2) + 2, 2);
 
                 if (double.IsInfinity(y) || double.IsNaN(y))
                 {
