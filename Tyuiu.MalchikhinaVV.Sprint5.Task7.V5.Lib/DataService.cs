@@ -15,7 +15,7 @@ namespace Tyuiu.MalchikhinaVV.Sprint5.Task7.V5.Lib
     {
         public string LoadDataAndSave(string path)
         {
-            string pathSaveFile =  Path.Combine(Path.GetTempPath(), "OutPutDataFileTask7V5.txt");
+            string pathSaveFile = Path.Combine(Path.GetTempPath(), "OutPutDataFileTask7V5.txt");
 
             FileInfo fileInfo = new FileInfo(pathSaveFile);
             bool fileExists = fileInfo.Exists;
@@ -25,22 +25,21 @@ namespace Tyuiu.MalchikhinaVV.Sprint5.Task7.V5.Lib
                 File.Delete(pathSaveFile);
             }
 
-            string strLine = "";
             using (StreamReader reader = new StreamReader(path))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
+                    string strLine = "";
                     for (int i = 0; i < line.Length; i++)
                     {
-                        if (((line[i] >= 'а') && (line[i] <= 'я')) || ((line[i] >= 'А') && (line[i] <= 'Я')) || line[i] == ' ' || line[i] == '!' || line[i] == ',' || line[i] == '.')
+                        if (!((line[i] >= 'A' && line[i] <= 'Z') || (line[i] >= 'a' && line[i] <= 'z')))
                         {
                             strLine = strLine + line[i];
                         }
                     }
 
                     File.AppendAllText(pathSaveFile, strLine + Environment.NewLine);
-                    strLine = "";
                 }
             }
             return pathSaveFile;
