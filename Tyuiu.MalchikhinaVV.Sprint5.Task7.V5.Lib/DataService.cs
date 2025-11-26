@@ -17,31 +17,20 @@ namespace Tyuiu.MalchikhinaVV.Sprint5.Task7.V5.Lib
         {
             string pathSaveFile = Path.Combine(Path.GetTempPath(), "OutPutDataFileTask7V5.txt");
 
-            FileInfo fileInfo = new FileInfo(pathSaveFile);
-            bool fileExists = fileInfo.Exists;
-
-            if (fileExists)
+            if (File.Exists(pathSaveFile))
             {
                 File.Delete(pathSaveFile);
             }
 
-            using (StreamReader reader = new StreamReader(path))
+            string[] lines = File.ReadAllLines(path);
+            foreach (string line in lines)
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    string strLine = "";
-                    for (int i = 0; i < line.Length; i++)
-                    {
-                        if (!((line[i] >= 'A' && line[i] <= 'Z') || (line[i] >= 'a' && line[i] <= 'z')))
-                        {
-                            strLine = strLine + line[i];
-                        }
-                    }
+                string cleanedLine = Regex.Replace(line, @"[A-Za-z]", "");
+                cleanedLine = Regex.Replace(cleanedLine, @"\s+\.", ".");
 
-                    File.AppendAllText(pathSaveFile, strLine + Environment.NewLine);
-                }
+                File.AppendAllText(pathSaveFile, cleanedLine + Environment.NewLine);
             }
+
             return pathSaveFile;
         }
     }
